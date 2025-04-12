@@ -6,10 +6,10 @@ var canvas = new SvgCanvas(20, 50, 50,
 				 Colors.Elegie,
 				 Colors.RainyDay);
 
-var glyphs = GlyphDictionary.FromFile("../../../Dictionary/english.json");
+var glyphs = GlyphDictionary.FromFile("../../../Dictionary/russian.json");
 
 var glyphWriter = new GlyphWriter(glyphs, canvas);
 
-glyphWriter.DrawText("hello world i am neoglyph a cryptographic program", new Cell(1, 1));
+glyphWriter.DrawText("привет мир я компьютерная программа", new Cell(1, 1));
 
 canvas.SaveToFile("../../../canvas.svg");
