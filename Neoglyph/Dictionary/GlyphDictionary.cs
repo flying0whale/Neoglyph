@@ -2,7 +2,7 @@ using System.Collections;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 
-namespace Neoglyph.Glyphs;
+namespace Neoglyph.Dictionary;
 
 public class GlyphDictionary : IEnumerable<KeyValuePair<string, string>>
 {
