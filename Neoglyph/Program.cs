@@ -3,9 +3,8 @@ using Neoglyph.Glyph;
 using Neoglyph.Graphics;
 
 var canvas = new SvgCanvas(20, 50, 50, 
-				 Colors.White,
-				 Colors.Black);
-canvas.DrawGrid();
+				 Colors.Elegie,
+				 Colors.RainyDay);
 
 var glyphs = GlyphDictionary.FromFile("../../../Dictionary/english.json");
 

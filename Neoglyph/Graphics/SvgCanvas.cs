@@ -22,7 +22,7 @@ public class SvgCanvas : Canvas
 	{
 		_glyphStroke = NormalizeColor(glyphStroke);
 		_halfCell = _cellSize / 2;
-		_lineWidth = _cellSize / 15.0;
+		_lineWidth = _cellSize / 10.0;
 		
 		_page = new Page(widthInCells * _cellSize, heightInCells * _cellSize) {
 			Background = NormalizeColor(background),
@@ -59,7 +59,7 @@ public class SvgCanvas : Canvas
 	{
 		var x = location.x + _halfCell;
 		DrawStraightLine(new Point(x, location.y),
-				 new Point(x, location.y + _cellSize));
+						 new Point(x, location.y + _cellSize));
 	}
 	
 	protected override void DrawHorizontalSymbol(Point location)
@@ -81,7 +81,8 @@ public class SvgCanvas : Canvas
 		path.MoveTo(from.x, from.y)
 			.LineTo(to.x, to.y);
 		
-		_graphics.StrokePath(path, _glyphStroke, lineWidth: _lineWidth);
+		_graphics.StrokePath(path, _glyphStroke, lineWidth: _lineWidth,
+												   lineCap: LineCaps.Round);
 	}
 
 	private static Colour NormalizeColor(Color color)
