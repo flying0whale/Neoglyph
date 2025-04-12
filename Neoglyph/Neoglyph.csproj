@@ -7,4 +7,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="VectSharp.SVG" Version="1.10.2" />
+    </ItemGroup>
+
 </Project>
