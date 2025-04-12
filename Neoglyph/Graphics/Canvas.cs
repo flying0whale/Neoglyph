@@ -15,30 +15,14 @@ public abstract class Canvas(int widthInCells, int heightInCells,
 
 	public virtual void SaveToFile(string path) { }
 
-	public virtual void DrawSymbol(Glyph.Glyph.Symbol symbol, Cell cell)
+	public virtual void DrawSymbol(Symbol symbol, Cell cell)
 	{
 		var location = new Point((int)(cell.x * _cellSize), (int)(cell.y * _cellSize));
-
-		switch (symbol) {
-			case Glyph.Glyph.Symbol.Vertical:
-				DrawVerticalSymbol(location);
-				break;
-			case Glyph.Glyph.Symbol.Horizontal:
-				DrawHorizontalSymbol(location);
-				break;
-			case Glyph.Glyph.Symbol.Cross:
-				DrawCrossSymbol(location);
-				break;
-			default:
-				throw new ArgumentOutOfRangeException(nameof(symbol), symbol, null);
-		}
+		
+		DrawParts(symbol.Parts, location);
 	}
 
-	protected abstract void DrawCrossSymbol(Point location);
-
-	protected abstract void DrawHorizontalSymbol(Point location);
-
-	protected abstract void DrawVerticalSymbol(Point location);
+	protected abstract void DrawParts(Symbol.Part[] parts, Point location);
 	
 	protected abstract void DrawStraightLine(Point from, Point to);
 }

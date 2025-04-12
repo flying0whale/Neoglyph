@@ -1,21 +1,19 @@
 namespace Neoglyph.Glyph;
 
-public static class Glyph
+public readonly struct Glyph
 {
-	public static Symbol SymbolFromChar(char ch)
+	public Glyph(string symbols)
 	{
-		return ch switch {
-			'|' => Symbol.Vertical,
-			'-' => Symbol.Horizontal,
-			'+' => Symbol.Cross,
-			_ => throw new FormatException("Unknown char")
-		};
+		List<Symbol> list = [];
+		foreach (var symbol in symbols) {
+			list.Add(new Symbol(symbol));
+		}
+		
+		Symbols = list.ToArray();
 	}
 	
-	public enum Symbol
-    {
-    	Vertical,
-    	Horizontal,
-    	Cross
-    }
+	/// <summary>
+	/// Parts of a glyph. Goes in order [Left, Top, Right, Bottom]
+	/// </summary>
+	public Symbol[] Symbols { get; private init; }
 }

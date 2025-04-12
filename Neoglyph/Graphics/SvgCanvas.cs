@@ -55,26 +55,24 @@ public class SvgCanvas : Canvas
 		_page.SaveAsSVG(path);
 	}
 
-	protected override void DrawVerticalSymbol(Point location)
+	protected override void DrawParts(Symbol.Part[] parts, Point location)
 	{
-		var x = location.x + _halfCell;
-		DrawStraightLine(new Point(x, location.y),
-						 new Point(x, location.y + _cellSize));
+		for (int i = 0; i < 4; i++) {
+			if (parts[i] == Symbol.Part.None) {
+				continue;
+			}
+			
+			var fromX = location.x + (i == 0 ? 0 : _halfCell);
+			var toX = fromX + (i is 1 or 3 ? 0 : _halfCell);
+			
+			var fromY = location.y + (i == 1 ? 0 : _halfCell);
+			var toY = fromY + (i is 0 or 2 ? 0 : _halfCell);
+			
+			DrawStraightLine(new Point(fromX, fromY),
+							 new Point(toX,   toY));
+		}
 	}
-	
-	protected override void DrawHorizontalSymbol(Point location)
-	{
-		var y = location.y + _halfCell;
-		DrawStraightLine(new Point(location.x, y),
-				 new Point(location.x + _cellSize, y));
-	}
-	
-	protected override void DrawCrossSymbol(Point location)
-	{
-		DrawVerticalSymbol(location);
-		DrawHorizontalSymbol(location);
-	}
-	
+
 	protected override void DrawStraightLine(Point from, Point to)
 	{
 		var path = new GraphicsPath();

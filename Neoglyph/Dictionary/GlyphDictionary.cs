@@ -12,10 +12,13 @@ public class GlyphDictionary : IEnumerable<KeyValuePair<string, string>>
 	};
 	
 	private readonly Dictionary<string, string> _glyphs;
+	
+	public Dictionary<string,string>.KeyCollection Keys => _glyphs.Keys;
 
 	private GlyphDictionary(Dictionary<string, string> glyphs)
 	{
 		_glyphs = glyphs;
+		_glyphs[" "] = " ";
 	}
 
 	public static GlyphDictionary FromDictionary(Dictionary<string, string> glyphs)
@@ -62,4 +65,6 @@ public class GlyphDictionary : IEnumerable<KeyValuePair<string, string>>
 	{
 		return GetEnumerator();
 	}
+	
+	public string this[string c] => _glyphs[c];
 }

@@ -2,14 +2,16 @@
 using Neoglyph.Glyph;
 using Neoglyph.Graphics;
 
-var canvas = new SvgCanvas(20, 50, 50, 
-				 Colors.Elegie,
-				 Colors.RainyDay);
+var english = GlyphDictionary.FromFile("../../../Dictionary/english.json");
+var writer = new GlyphParser(english);
 
-var glyphs = GlyphDictionary.FromFile("../../../Dictionary/russian.json");
+var text = writer.ParseText("hello and welcome to neoglyph");
 
-var glyphWriter = new GlyphWriter(glyphs, canvas);
+Canvas svgCanvas = new SvgCanvas(20, 60, 50,
+					  Colors.Elegie,
+					  Colors.RainyDay);
+var renderer = new GlyphRenderer(svgCanvas);
 
-glyphWriter.DrawText("привет мир я компьютерная программа", new Cell(1, 1));
+renderer.RenderText(text.ToList(), new Cell(1, 1));
 
-canvas.SaveToFile("../../../canvas.svg");
+svgCanvas.SaveToFile("../../../neoglyph.svg");
