@@ -55,10 +55,20 @@ public class SvgCanvas : Canvas
 		_page.SaveAsSVG(path);
 	}
 
-	protected override void DrawParts(Symbol.Part[] parts, Point location)
+	public override void DrawArc(Sector sector, Cell cell)
+	{
+		var path = new GraphicsPath();
+		var loc = new Point((int)(cell.x * _cellSize), (int)(cell.y * _cellSize));
+			
+		path.Arc(loc.x, loc.y, _halfCell, sector.From, sector.To);
+		_graphics.StrokePath(path, _glyphStroke, lineWidth: _lineWidth,
+										           lineCap: LineCaps.Round);
+	}
+
+	protected override void DrawParts(Glyph.Glyph.Part[] parts, Point location)
 	{
 		for (int i = 0; i < 4; i++) {
-			if (parts[i] == Symbol.Part.None) {
+			if (parts[i] == Glyph.Glyph.Part.None) {
 				continue;
 			}
 			

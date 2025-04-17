@@ -4,16 +4,26 @@ public readonly struct Glyph
 {
 	public Glyph(string symbols)
 	{
-		List<Symbol> list = [];
 		foreach (var symbol in symbols) {
-			list.Add(new Symbol(symbol));
+			Part[] parts = symbol switch {
+				'|' => [Part.None, Part.Line, Part.None, Part.Line],
+				'-' => [Part.Line, Part.None, Part.Line, Part.None],
+				'+' => [Part.Line, Part.Line, Part.Line, Part.Line],
+				_ => throw new FormatException("Unknown symbol")
+			};
+			
+			Symbols.Add(parts);
 		}
-		
-		Symbols = list.ToArray();
 	}
-	
+
 	/// <summary>
 	/// Parts of a glyph. Goes in order [Left, Top, Right, Bottom]
 	/// </summary>
-	public Symbol[] Symbols { get; private init; }
+	public List<Part[]> Symbols { get; private init; } = [];
+	
+	public enum Part
+	{
+		Line,
+		None
+	}
 }

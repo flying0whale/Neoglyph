@@ -15,14 +15,16 @@ public abstract class Canvas(int widthInCells, int heightInCells,
 
 	public virtual void SaveToFile(string path) { }
 
-	public virtual void DrawSymbol(Symbol symbol, Cell cell)
+	public virtual void DrawSymbol(Glyph.Glyph.Part[] symbol, Cell cell)
 	{
 		var location = new Point((int)(cell.x * _cellSize), (int)(cell.y * _cellSize));
 		
-		DrawParts(symbol.Parts, location);
+		DrawParts(symbol, location);
 	}
 
-	protected abstract void DrawParts(Symbol.Part[] parts, Point location);
+	public abstract void DrawArc(Sector sector, Cell cell);
+
+	protected abstract void DrawParts(Glyph.Glyph.Part[] parts, Point location);
 	
 	protected abstract void DrawStraightLine(Point from, Point to);
 }
