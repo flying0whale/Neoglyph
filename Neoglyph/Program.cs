@@ -2,15 +2,19 @@
 using Neoglyph.Glyph;
 using Neoglyph.Graphics;
 
+const string TEXT = "all human beings are born free and equal in dignity and rights";
+
 var dictionary = GlyphDictionary.FromFile("../../../Dictionary/english.json");
 var writer = new GlyphParser(dictionary);
 
-var text = writer.ParseText("all human beings are born free and equal in dignity and rights");
+var words = writer.ParseText(TEXT).ToList();
 
-Canvas svgCanvas = new SvgCanvas(20, 100, 50,
+var height = TEXT.Length - words.Count;
+
+Canvas svgCanvas = new SvgCanvas(20, height, 50,
 					  Colors.Elegie,
 					  Colors.RainyDay);
 var renderer = new GlyphRenderer(svgCanvas);
 
-renderer.RenderText(text.ToList(), new Cell(1, 1));
+renderer.RenderText(words, new Cell(1, 1));
 svgCanvas.SaveToFile("../../../neoglyph.svg");
